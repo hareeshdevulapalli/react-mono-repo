@@ -2,7 +2,10 @@
   "name": "@react-mono-repo/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "start:portfolio": "nx build portfolio && nx run portfolio:dev",
+    "build:portfolio": "nx build portfolio"
+  },
   "private": true,
   "dependencies": {
     "next": "~15.1.4",
@@ -10,6 +13,8 @@
     "react-dom": "19.0.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.14.5",
+    "@babel/preset-react": "^7.14.5",
     "@eslint/compat": "^1.1.1",
     "@eslint/eslintrc": "^2.1.1",
     "@eslint/js": "^9.8.0",
@@ -19,17 +24,24 @@
     "@nx/jest": "20.6.4",
     "@nx/js": "20.6.4",
     "@nx/next": "20.6.4",
+    "@nx/react": "20.6.4",
+    "@nx/rollup": "20.6.4",
     "@nx/workspace": "20.6.4",
+    "@rollup/plugin-url": "^8.0.2",
+    "@svgr/rollup": "^8.1.0",
     "@swc-node/register": "~1.9.1",
+    "@swc/cli": "~0.3.12",
     "@swc/core": "~1.5.7",
     "@swc/helpers": "~0.5.11",
+    "@swc/jest": "~0.2.36",
     "@testing-library/dom": "10.4.0",
     "@testing-library/react": "16.1.0",
     "@types/jest": "^29.5.12",
-    "@types/node": "18.16.9",
+    "@types/node": "^20.0.0",
     "@types/react": "19.0.0",
     "@types/react-dom": "19.0.0",
     "babel-jest": "^29.7.0",
+    "core-js": "^3.36.1",
     "cypress": "^13.13.0",
     "eslint": "^9.8.0",
     "eslint-config-next": "14.2.16",
@@ -41,9 +53,13 @@
     "eslint-plugin-react-hooks": "5.0.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
+    "jest-environment-node": "^29.7.0",
+    "jsonc-eslint-parser": "^2.1.0",
     "nx": "20.6.4",
     "prettier": "^2.6.2",
+    "rollup": "^4.14.0",
     "sass": "1.62.1",
+    "swc-loader": "0.1.15",
     "ts-jest": "^29.1.0",
     "ts-node": "10.9.1",
     "tslib": "^2.3.0",
@@ -51,6 +67,11 @@
     "typescript-eslint": "^8.19.0"
   },
   "workspaces": [
-    "apps/*"
+    "apps/*",
+    "utils",
+    "hooks",
+    "config",
+    "libs/core",
+    "libs/ui-kit"
   ]
 }
