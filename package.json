@@ -6,7 +6,7 @@
     "start:portfolio": "nx build portfolio && nx run portfolio:dev",
     "build:portfolio": "nx build portfolio",
     "export:portfolio": "cd apps/portfolio && next build && cd ../.. && mkdir -p dist/apps && rm -rf dist/apps/portfolio && mv apps/portfolio/out dist/apps/portfolio",
-    "deploy:portfolio": "yarn export:portfolio && echo 'www.hareeshd.dev' > dist/apps/portfolio/CNAME && gh-pages -d dist/apps/portfolio"
+    "deploy:portfolio": "npx nx build portfolio && echo 'hareeshd.dev' > dist/apps/portfolio/CNAME && gh-pages -d dist/apps/portfolio"
   },
   "private": true,
   "dependencies": {

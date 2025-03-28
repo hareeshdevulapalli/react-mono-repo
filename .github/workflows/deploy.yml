@@ -12,28 +12,28 @@ jobs:
       contents: write
 
     steps:
-      - name: Checkout repository
+      - name: 📥 Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Node
+      - name: 🧰 Set up Node
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: Install dependencies
+      - name: 📦 Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Build Portfolio App using Nx
+      - name: 🔨 Build portfolio with Nx
         run: npx nx build portfolio
 
-      - name: Add CNAME file
+      - name: 📝 Add CNAME file
         run: |
           mkdir -p dist/apps/portfolio
           echo 'hareeshd.dev' > dist/apps/portfolio/CNAME
 
-      - name: Deploy to GitHub Pages
+      - name: 🚀 Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: dist/apps/portfolio
           publish_branch: gh-pages
+          publish_dir: dist/apps/portfolio
