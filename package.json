@@ -4,7 +4,9 @@
   "license": "MIT",
   "scripts": {
     "start:portfolio": "nx build portfolio && nx run portfolio:dev",
-    "build:portfolio": "nx build portfolio"
+    "build:portfolio": "nx build portfolio",
+    "export:portfolio": "cd apps/portfolio && next build && cd ../.. && mkdir -p dist/apps && rm -rf dist/apps/portfolio && mv apps/portfolio/out dist/apps/portfolio",
+    "deploy:portfolio": "yarn export:portfolio && echo 'www.hareeshd.dev' > dist/apps/portfolio/CNAME && gh-pages -d dist/apps/portfolio"
   },
   "private": true,
   "dependencies": {
@@ -51,6 +53,7 @@
     "eslint-plugin-jsx-a11y": "6.10.1",
     "eslint-plugin-react": "7.35.0",
     "eslint-plugin-react-hooks": "5.0.0",
+    "gh-pages": "^6.3.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "jest-environment-node": "^29.7.0",

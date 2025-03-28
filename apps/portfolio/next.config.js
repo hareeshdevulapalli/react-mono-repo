@@ -9,7 +9,9 @@ const nextConfig = {
   },
   devIndicators: {
     appIsrStatus: false,
-  }
+  },
+  output:'export',
+  trailingSlash:true
 };
 
 module.exports = nextConfig;

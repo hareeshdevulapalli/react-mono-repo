@@ -1,0 +1,43 @@
+name: Deploy Portfolio to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Needed to push to gh-pages branch
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build static export for portfolio
+        run: |
+          cd apps/portfolio
+          yarn build
+          cd ../..
+          mkdir -p dist/apps
+          rm -rf dist/apps/portfolio
+          mv apps/portfolio/out dist/apps/portfolio
+
+      - name: Add CNAME file
+        run: echo 'www.hareesh.dev' > dist/apps/portfolio/CNAME
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: dist/apps/portfolio
+          publish_branch: gh-pages
