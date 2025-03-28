@@ -27,7 +27,9 @@ jobs:
         run: npx nx build portfolio
 
       - name: Add CNAME file
-        run: echo 'www.hareeshd.dev' > dist/apps/portfolio/CNAME
+        run: |
+          mkdir -p dist/apps/portfolio
+          echo 'www.hareeshd.dev' > dist/apps/portfolio/CNAME
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
