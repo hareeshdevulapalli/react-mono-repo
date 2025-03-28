@@ -15,7 +15,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
+      - name: Set up Node
         uses: actions/setup-node@v3
         with:
           node-version: 18
@@ -23,15 +23,19 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Build portfolio app using Nx
-        run: npx nx build portfolio
-
-      - name: Add CNAME file
+      - name: Build static export from apps/portfolio
         run: |
-          mkdir -p dist/apps/portfolio
-          echo 'hareeshd.dev' > dist/apps/portfolio/CNAME
+          cd apps/portfolio
+          npx next build
+          cd ../..
+          mkdir -p dist/apps
+          rm -rf dist/apps/portfolio
+          mv apps/portfolio/out dist/apps/portfolio
 
-      - name: List output files
+      - name: Add CNAME
+        run: echo 'hareeshd.dev' > dist/apps/portfolio/CNAME
+
+      - name: List deployed files
         run: ls -R dist/apps/portfolio
 
       - name: Deploy to GitHub Pages
