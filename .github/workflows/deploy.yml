@@ -9,31 +9,31 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: write  # Needed for deploying to gh-pages
 
     steps:
-      - name: 📥 Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: 🧰 Set up Node
+      - name: Set up Node
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: 📦 Install dependencies
+      - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: 🔨 Build portfolio with Nx
+      - name: Build static portfolio site
         run: npx nx build portfolio
 
-      - name: 📝 Add CNAME file
+      - name: Add CNAME for custom domain
         run: |
           mkdir -p dist/apps/portfolio
           echo 'hareeshd.dev' > dist/apps/portfolio/CNAME
 
-      - name: 🚀 Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages (gh-pages branch)
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
           publish_dir: dist/apps/portfolio
+          publish_branch: gh-pages
