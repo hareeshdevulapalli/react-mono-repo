@@ -9,7 +9,7 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # Needed to push to gh-pages branch
+      contents: write
 
     steps:
       - name: Checkout repository
@@ -23,16 +23,11 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Build static export for portfolio
-        run: |
-          npx nx build portfolio
-          cd ../..
-          mkdir -p dist/apps
-          rm -rf dist/apps/portfolio
-          mv apps/portfolio/out dist/apps/portfolio
+      - name: Build Portfolio App using Nx
+        run: npx nx build portfolio
 
       - name: Add CNAME file
-        run: echo 'www.hareesh.dev' > dist/apps/portfolio/CNAME
+        run: echo 'www.hareeshd.dev' > dist/apps/portfolio/CNAME
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
