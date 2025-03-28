@@ -25,8 +25,7 @@ jobs:
 
       - name: Build static export for portfolio
         run: |
-          cd apps/portfolio
-          yarn build
+          npx nx build portfolio
           cd ../..
           mkdir -p dist/apps
           rm -rf dist/apps/portfolio
